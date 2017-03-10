@@ -15,6 +15,7 @@
 #include <ctime>
 #include "standaard.h"
 #include "stand.h"
+#include <fstream>
 using namespace std;
 
 //*************************************************************************
@@ -170,11 +171,10 @@ void doespel (Stand *s1)
 // Voert de experimenten uit zoals beschreven op blz 4 van de opdracht.
 void doeexperimenten ()
 {
-
-  cout << "Functie doeexperimenten is nog niet geimplementeerd." << endl;
-  // TODO: implementeren
-  for(int m = 2; m <= 20; m++){
-        for(int n = 2; n <= 20; n++){
+  ofstream myfile;
+  myfile.open("output.txt");
+  for(int m = 2; m <= 10; m++){
+        for(int n = 2; n <= 10; n++){
             int grij, gkolom, gsteennr;
             int x = 0;
             int aantal = 0;
@@ -183,9 +183,9 @@ void doeexperimenten ()
             while(!s1->eindstand() && test){
                 const clock_t begin_time = clock();
                 if(x == 0 && s1 ->winnend (aantal, grij, gkolom, gsteennr)){
-                    cout << "WINNEND " << aantal  << " " <<  m << " " << n << endl;
+                    myfile << "WINNEND zet 1 " << aantal  << " " <<  m << " " << n;
                 }
-                cout << float( clock () - begin_time ) << endl;
+                myfile << " --time in ms " << float( clock () - begin_time ) << endl;
                 x++;
                 test = false;
             }
