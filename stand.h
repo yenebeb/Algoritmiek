@@ -70,7 +70,7 @@ class Stand
     //   - false, als er geen zet meer mogelijk is, d.w.z. als
     //     de huidige stand een eindstand is.
     bool goedezet (int &grij, int &gkolom, int &gsteennr);
-    double goedezet_p (int depth, int &grij, int &gkolom, int &gsteennr);
+    double goedezet_p (int depth, double &winp, int &grij, int &gkolom, int &gsteennr);
 
   private:
     int x;

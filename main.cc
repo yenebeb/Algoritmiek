@@ -175,23 +175,23 @@ void doeexperimenten ()
   myfile.open("output.txt");
   for(int m = 2; m <= 10; m++){
         for(int n = 2; n <= 10; n++){
-            int grij, gkolom, gsteennr;
-            int x = 0;
+        	cout << m << n << endl;
+            int rij, kolom, steennr;
             int aantal = 0;
-            bool test = true;
             Stand *s1 = new Stand(m, n);
-            while(!s1->eindstand() && test){
-                const clock_t begin_time = clock();
-                if(x == 0 && s1 ->winnend (aantal, grij, gkolom, gsteennr)){
-                    myfile << "WINNEND zet 1 " << aantal  << " " <<  m << " " << n;
-                }
-                myfile << " --time in ms " << float( clock () - begin_time ) << endl;
-                x++;
-                test = false;
+			
+			const clock_t begin_time = clock();
+            if(s1->winnend (aantal, rij, kolom, steennr)){
+            	myfile << "Winnende zet " << aantal  << " " <<  m << " " << n;
+				myfile << " --time in ms " << float( clock () - begin_time ) << endl;
+            }
+            else{
+				double winp = 0;
+				s1->goedezet_p(0, winp, rij, kolom, steennr);
+				myfile << "Beste zet " << winp << " " << m << " " << n << endl;
             }
         }
-
-  }
+    }
 
 }  // doeexperimenten
 

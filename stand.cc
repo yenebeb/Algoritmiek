@@ -235,24 +235,25 @@ int Stand::zettenMogelijk(){
 bool Stand::goedezet (int &grij, int &gkolom, int &gsteennr)
 {
     int aantal = 0;
+    double winp = 0; // beste winpercentage
+
     if(eindstand()){
         return false;
     }
     if(winnend(aantal, grij, gkolom, gsteennr)){
         return true;
     }
-    goedezet_p(0, grij, gkolom, gsteennr);
+    goedezet_p(0, winp, grij, gkolom, gsteennr);
     return true;
 }  // goedezet
 
 // Zoekt naar de beste zet voor de speler (zet met hoogste winkans),
 // beste zet wordt opgeslagen in grij, gkolom, gsteenr.
-// depth wordt opgehoogd na elke recursieve oproep.
-double Stand::goedezet_p(int depth, int &grij, int &gkolom, int &gsteennr){
-    double winp = 0; // beste winpercentage
+// depth wordt opgehoogd na elke recursieve oproep .
+double Stand::goedezet_p(int depth, double &winp, int &grij, int &gkolom, int &gsteennr){
     double aantalm = (double) zettenMogelijk(); // aantal mogelijke zetten
     double totwin = 0; // totale winpercentage
-
+    winp = 0;
     if(eindstand() && (depth % 2 != 0)){
         return 1;
     }
@@ -264,10 +265,11 @@ double Stand::goedezet_p(int depth, int &grij, int &gkolom, int &gsteennr){
             for(int z = 0; z <= 3; z++){
                 if(legsteenneer(i,j,z)){
                     depth++;
-                    double winperc = goedezet_p(depth, grij, gkolom, gsteennr);
+                    double winperc = goedezet_p(depth, winp, grij, gkolom, gsteennr);
                     depth--;
                     totwin += winperc;
                     if(winperc >= winp){
+                        //cout << winp << endl;
                         winp = winperc;
                         grij = i;
                         gkolom = j;
